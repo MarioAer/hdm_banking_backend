@@ -1,0 +1,170 @@
+db.bank.insert({
+    bankId: "B1",
+    bankName: "HdM Bank",
+    bankDescription: "Usability Project from the Stuttgart Media University",
+    address:
+    {
+      street: "Nobelstr. 10",
+      zipCode: "70569",
+      City: "Stuttgart",
+      Country: "Germany"
+    }
+  })
+
+db.customers.insert({
+    customerID: "C192803",
+    address:
+    {
+      street: "Greenstr. 1",
+      zipCode: "70569",
+      City: "Stuttgart",
+      Country: "Germany"
+    },
+    personalConditionCode: "VS02",
+    supporterID: "S256943",
+    contactDetails: ""
+  })
+db.customers.insert({
+    customerID: "C194783",
+    address:
+    {
+      street: "Bluestr. 1",
+      zipCode: "70569",
+      City: "Stuttgart",
+      Country: "Germany"
+    },
+    personalConditionCode: "CO01",
+    supporterID: "S328843",
+    contactDetails: ""
+  })
+db.refPersonalConditionCode.insert([
+{
+  conditionID: "VS02",
+  conditionDescription: "Visual"
+},
+{
+  conditionID: "CO01",
+  conditionDescription: "Cognitive"
+}
+])
+db.supporters.insert([
+{
+  supporterID: "S256943",
+  supporterName: "Mr. Andrew McConnel",
+  supporterDescription: "Visual impairments"
+},
+{
+  supporterID: "S328843",
+  supporterName: "Ms. Martha Space",
+  supporterDescription: "Cognitive impairments"
+},
+])
+
+db.savedRecipients.insert([
+  {
+    customerID: "C192803",
+    recipients : [
+      {
+        "recipientName" : "Julia Müller",
+        "recipientAccountNumber": "055123",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "julia.jpg"
+      },
+      {
+        "recipientName" : "Telefon - Telekom",
+        "recipientAccountNumber": "055165",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "cell.png"
+      },
+      {
+        "recipientName" : "Alexander Weber",
+        "recipientAccountNumber": "12345",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "alexander.jpg"
+      },
+      {
+        "recipientName" : "Strom - EnBW",
+        "recipientAccountNumber": "055343",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "EnBW.gif"
+      }
+    ]
+  },
+  {
+    customerID: "C194783",
+    recipients : [
+      {
+        "recipientName" : "Julia Müller",
+        "recipientAccountNumber": "055123",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "julia.jpg"
+      },
+      {
+        "recipientName" : "Telefon - Telekom",
+        "recipientAccountNumber": "055165",
+        "recipientBankName": "Deutsche Bank",
+        "recipientIBAN": "",
+        "recipientPhoto": "cell.png"
+      }
+    ]
+  }
+])
+
+db.accounts.insert([
+  {
+    accountNumber : "AC30354786",
+    customerID: "C192803",
+    accountTypeCode: "AA101",
+    accountStatusCode: "active",
+    currentBalance: "25000",
+    otherDetails: ""
+  },
+  {
+    accountNumber : "AC30345897",
+    customerID: "C194783",
+    accountTypeCode: "AA101",
+    accountStatusCode: "active",
+    currentBalance: "45400",
+    otherDetails: ""
+  }
+])
+
+db.refAccountTypeCode.insert([
+  {
+    accountTypeCode: "AC101",
+    accountTypeDescription: "Accessible Account"
+  }
+])
+
+db.redAccountSatusCode.insert([
+  {
+    accountStatusCode: "active",
+    accountStatusDescription: "This account is currently active"
+  },
+  {
+    accountStatusCode: "closed",
+    accountStatusDescription: "This account was closed"
+  },
+])
+
+db.transactions.insert([
+  {
+    trasactionID: "TR1239858",
+    accountNumber : "AC30354786",
+    merchantID : "M12354",
+    trasactionType : "DEC",
+    trasactionDateTime : ISODate("2012-12-19T06:01:17.171Z")
+  }
+])
+
+db.refTransactionTypes.insert([
+  {
+    transactionTypeCode : "DEC",
+    transactionTypeDescription : "Debit from account"
+  }
+])
