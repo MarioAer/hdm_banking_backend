@@ -15,8 +15,13 @@ router.get('/', function(req, res, next) {
   res.json({ supporters : "servus"});
 });
 
-/*
- * GET customerslist.
+/**
+ * @api {get} /supporters/supporterslist List of supporters
+ * @apiVersion 1.0.0
+ * @apiName GetSupportersList
+ * @apiGroup Supporters
+ *
+ * @apiSuccess {Object[]} supporters Supporters Objects.
  */
 router.get('/supporterslist', function(req, res, next) {
   var db = req.db;
@@ -38,10 +43,17 @@ router.get('/supporterslist', function(req, res, next) {
   });
 });
 
-/*
- * GET customer.
+/**
+ * @api {get} /supporters/:id Get supporter
+ * @apiVersion 1.0.0
+ * @apiName GetSupporter
+ * @apiGroup Supporters
+ *
+ * @apiSuccess {String} supporterID Supporter id.
+ * @apiSuccess {String} supporterName Supporter name.
+ * @apiSuccess {String} supporterDescription Supporter Description.
  */
-router.get('/supporter/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   var db = req.db;
   var collection = db.get('supporters');
   var userToGet = req.params.id;
@@ -62,8 +74,11 @@ router.get('/supporter/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to adduser.
+/**
+ * @api {post} /addsupporter Save supporter
+ * @apiVersion 1.0.0
+ * @apiName AddSupporter
+ * @apiGroup Supporters
  */
 router.post('/addsupporter', function(req, res) {
     var db = req.db;
@@ -75,8 +90,11 @@ router.post('/addsupporter', function(req, res) {
     });
 });
 
-/*
- * DELETE to deleteuser.
+/**
+ * @api {delete} /deletesupporter Remove supporter
+ * @apiVersion 1.0.0
+ * @apiName DeleteSupporter
+ * @apiGroup Supporters
  */
 router.delete('/deletesupporter/:id', function(req, res) {
     var db = req.db;

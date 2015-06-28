@@ -163,8 +163,8 @@ var transactions = [
     transactionID: "TR1239858",
     accountNumber : "AC30354786",
     merchantID : "M12354",
-    trasactionType : "DEC",
-    trasactionDateTime : ISODate("2012-12-19T06:01:17.171Z")
+    transactionType : "DEC",
+    transactionDateTime : ISODate("2012-12-19T06:01:17.171Z")
   }
 ]
 

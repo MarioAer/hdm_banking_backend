@@ -15,8 +15,17 @@ router.get('/', function(req, res, next) {
   res.json({bank : "hdmBank"});
 });
 
-/*
- * GET bank.
+/**
+ * @api {get} /bank/:id Read data from bank
+ * @apiVersion 1.0.0
+ * @apiName GetBank
+ * @apiDescription Get Information about the bank.
+ * @apiGroup Bank
+ *
+ * @apiSuccess {String} bankId Bank id.
+ * @apiSuccess {String} bankName Name of the bank.
+ * @apiSuccess {String} bankDescription Description of the bank.
+ * @apiSuccess {String} address The adress of the bank.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;
@@ -39,8 +48,12 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to adduser.
+/**
+ * @api {post} /bank/addbank Save Bank
+ * @apiVersion 1.0.0
+ * @apiName AddBank
+ * @apiDescription Create a new Bank entry.
+ * @apiGroup Bank
  */
 router.post('/addbank', function(req, res) {
     var db = req.db;
@@ -52,8 +65,12 @@ router.post('/addbank', function(req, res) {
     });
 });
 
-/*
- * DELETE to deleteuser.
+/**
+ * @api {delete} /bank/deleteBank/:id Remove Bank
+ * @apiVersion 1.0.0
+ * @apiName removeBank
+ * @apiDescription Removes a Bank from the DB.
+ * @apiGroup Bank
  */
 router.delete('/deletebank/:id', function(req, res) {
     var db = req.db;

@@ -15,8 +15,14 @@ router.get('/', function(req, res, next) {
   res.json({refTransactionTypes : "info"});
 });
 
-/*
- * GET refpcc.
+/**
+ * @api {get} /reftt/:id Get Transaction type
+ * @apiVersion 1.0.0
+ * @apiName TransactionType
+ * @apiGroup refTransactionTypes
+ *
+ * @apiSuccess {String} transactionTypeCode Trasaction type code's reference.
+ * @apiSuccess {String} transactionTypeDescription Trasaction type code's description.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;
@@ -39,8 +45,11 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to addrefpcc.
+/**
+ * @api {post} /reftt/addreftt Add Transaction type
+ * @apiVersion 1.0.0
+ * @apiName AddTransactionType
+ * @apiGroup refTransactionTypes
  */
 router.post('/addreftt', function(req, res) {
     var db = req.db;
@@ -52,8 +61,11 @@ router.post('/addreftt', function(req, res) {
     });
 });
 
-/*
- * DELETE from refpcc.
+/**
+ * @api {delete} /reftt/deletereftt/:id Remove Transaction type
+ * @apiVersion 1.0.0
+ * @apiName DeleteTransactionType
+ * @apiGroup refTransactionTypes
  */
 router.delete('/deletereftt/:id', function(req, res) {
     var db = req.db;

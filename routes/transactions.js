@@ -15,8 +15,13 @@ router.get('/', function(req, res, next) {
   res.json({ transactions : "trasaction information"});
 });
 
-/*
- * GET customerslist.
+/**
+ * @api {get} /transactions/transactionlist List of Transactions
+ * @apiVersion 1.0.0
+ * @apiName GetTransactionsList
+ * @apiGroup Transactions
+ *
+ * @apiSuccess {Object[]} transactions Transactions Objects.
  */
 router.get('/transactionlist', function(req, res, next) {
   var db = req.db;
@@ -38,8 +43,18 @@ router.get('/transactionlist', function(req, res, next) {
   });
 });
 
-/*
- * GET transaction by account.
+/**
+ * @api {get} /transactions/account/:id Get Transaction
+ * @apiVersion 1.0.0
+ * @apiName GetTransaction
+ * @apiDescription Get Transaction from account id.
+ * @apiGroup Transactions
+ *
+ * @apiSuccess {String} transactionID Transaction's id.
+ * @apiSuccess {String} accountNumber Associated account's number.
+ * @apiSuccess {String} merchantID Merchant's id.
+ * @apiSuccess {String} transactionType Transaction's type.
+ * @apiSuccess {String} transactionDateTime Transaction's date.
  */
 router.get('/account/:id', function(req, res, next) {
   var db = req.db;
@@ -62,8 +77,18 @@ router.get('/account/:id', function(req, res, next) {
   });
 });
 
-/*
- * GET transaction by ID.
+/**
+ * @api {get} /transactions/:id Get Transaction
+ * @apiVersion 1.0.0
+ * @apiName GetTransaction
+ * @apiDescription Get Transaction from the transaction's id.
+ * @apiGroup Transactions
+ *
+ * @apiSuccess {String} transactionID Transaction's id.
+ * @apiSuccess {String} accountNumber Associated account's number.
+ * @apiSuccess {String} merchantID Merchant's id.
+ * @apiSuccess {String} transactionType Transaction's type.
+ * @apiSuccess {String} transactionDateTime Transaction's date.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;
@@ -86,8 +111,11 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST transaction.
+/**
+ * @api {post} /transactions/addtransaction Save Transaction
+ * @apiVersion 1.0.0
+ * @apiName AddTransaction
+ * @apiGroup Transactions
  */
 router.post('/addtransaction', function(req, res) {
     var db = req.db;
@@ -99,8 +127,11 @@ router.post('/addtransaction', function(req, res) {
     });
 });
 
-/*
- * DELETE to deleteuser.
+/**
+ * @api {delete} /transactions/deleteTransaction/:id Remove Transaction
+ * @apiVersion 1.0.0
+ * @apiName DeleteTransaction
+ * @apiGroup Transactions
  */
 router.delete('/deleteTransaction/:id', function(req, res) {
     var db = req.db;

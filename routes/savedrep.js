@@ -15,8 +15,14 @@ router.get('/', function(req, res, next) {
   res.json({savedRecipients : "info"});
 });
 
-/*
- * GET saved Recipients.
+/**
+ * @api {get} /savedrep/:id Get saved recipients
+ * @apiVersion 1.0.0
+ * @apiName GetSavedRecipients
+ * @apiGroup SavedRecipients
+ *
+ * @apiSuccess {String} customerID Customer's id.
+ * @apiSuccess {Object[]} recipients Array of recipients.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;

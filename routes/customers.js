@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var EasyXml = require('easyxml');
+var passport = require('passport');
 
 var serializer = new EasyXml({
     singularizeChildren: true,
@@ -12,13 +13,20 @@ var serializer = new EasyXml({
 });
 
 router.get('/', function(req, res, next) {
-  res.json({hi : "servus"});
+  res.send(
+      (err === null) ? { msg: '' } : { msg: err }
+  );
 });
 
-/*
- * GET customerslist.
+/**
+ * @api {get} /customer/customerslist List of customers
+ * @apiVersion 1.0.0
+ * @apiName GetCustomersList
+ * @apiGroup Customer
+ *
+ * @apiSuccess {Object[]} customer Customer Objects.
  */
-router.get('/customerslist', function(req, res, next) {
+router.get('/customerslist', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('customers');
   collection.find({},{},function(e, data){
@@ -38,10 +46,19 @@ router.get('/customerslist', function(req, res, next) {
   });
 });
 
-/*
- * GET customer.
+/**
+ * @api {get} /customer/:id Read data of a customer
+ * @apiVersion 1.0.0
+ * @apiName GetCustomers
+ * @apiGroup Customer
+ *
+ * @apiSuccess {String} customerID Customer id.
+ * @apiSuccess {String} address Customer's address.
+ * @apiSuccess {String} personalConditionCode Disability code.
+ * @apiSuccess {String} supporterID Supporter id of respective customer.
+ * @apiSuccess {String} contactDetails Extra details about the customer.
  */
-router.get('/customer/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('customers');
   var userToGet = req.params.id;
@@ -62,10 +79,13 @@ router.get('/customer/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to adduser.
+/**
+ * @api {post} /customer/addCustomer Saves a customer in the DB.
+ * @apiVersion 1.0.0
+ * @apiName AddCustomers
+ * @apiGroup Customer
  */
-router.post('/addcustomer', function(req, res) {
+router.post('/addcustomer', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.insert(req.body, function(err, result){
@@ -75,10 +95,13 @@ router.post('/addcustomer', function(req, res) {
     });
 });
 
-/*
- * DELETE to deleteuser.
+/**
+ * @api {post} /customer/deleteCustomer Deletes customer from the DB.
+ * @apiVersion 1.0.0
+ * @apiName AddCustomers
+ * @apiGroup Customer
  */
-router.delete('/deletecustomer/:id', function(req, res) {
+router.delete('/deletecustomer/:id', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('customers');
     var userToDelete = req.params.id;

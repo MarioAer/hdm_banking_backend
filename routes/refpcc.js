@@ -15,8 +15,14 @@ router.get('/', function(req, res, next) {
   res.json({refPersonalConditionCode : "info"});
 });
 
-/*
- * GET refpcc.
+/**
+ * @api {get} /refpcc/:id Get personal condition
+ * @apiVersion 1.0.0
+ * @apiName GetPersonalCondition
+ * @apiGroup refPersonalConditionCode
+ *
+ * @apiSuccess {String} conditionID Condition's id.
+ * @apiSuccess {String} conditionDescription Condition's description.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;
@@ -39,8 +45,11 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to addrefpcc.
+/**
+ * @api {post} /refpcc/addrefpcc Save personal condition
+ * @apiVersion 1.0.0
+ * @apiName AddPersonalCondition
+ * @apiGroup refPersonalConditionCode
  */
 router.post('/addrefpcc', function(req, res) {
     var db = req.db;
@@ -52,8 +61,11 @@ router.post('/addrefpcc', function(req, res) {
     });
 });
 
-/*
- * DELETE from refpcc.
+/**
+ * @api {delete} /refpcc/deleterefpcc/:id Remove personal condition
+ * @apiVersion 1.0.0
+ * @apiName DeletePersonalCondition
+ * @apiGroup refPersonalConditionCode
  */
 router.delete('/deleterefpcc/:id', function(req, res) {
     var db = req.db;

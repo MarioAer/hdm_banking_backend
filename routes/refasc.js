@@ -5,7 +5,7 @@ var EasyXml = require('easyxml');
 var serializer = new EasyXml({
     singularizeChildren: true,
     allowAttributes: true,
-    rootElement: 'referenceCodes',
+    rootElement: 'AccountStatus',
     dateFormat: 'JS',
     indent: 2,
     manifest: true
@@ -15,14 +15,20 @@ router.get('/', function(req, res, next) {
   res.json({refPersonalConditionCode : "info"});
 });
 
-/*
- * GET refact.
+/**
+ * @api {get} /refasc/:id Get account status reference
+ * @apiVersion 1.0.0
+ * @apiName GetAccountStatusCode
+ * @apiGroup refAccountStatusCode
+ *
+ * @apiSuccess {String} accountStatusCode Status code.
+ * @apiSuccess {String} accountStatusDescription Status code's description.
  */
 router.get('/:id', function(req, res, next) {
   var db = req.db;
-  var collection = db.get('refAccountTypeCode');
-  var acreferenceToGet = req.params.id;
-  collection.find({ 'accountTypeCode' : acreferenceToGet },function(e, data){
+  var collection = db.get('refAccountStatusCode');
+  var statusToGet = req.params.id;
+  collection.find({ 'accountStatusCode' : statusToGet },function(e, data){
     // transform the id's into strings for the serializer
     for(var i = 0; i < data.length; i++) {
       var tempId = data[i]._id.toString();
@@ -39,12 +45,15 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/*
- * POST to refact.
+/**
+ * @api {post} /refasc/addrefasc Add account status reference
+ * @apiVersion 1.0.0
+ * @apiName AddAccountStatusCode
+ * @apiGroup refAccountStatusCode
  */
-router.post('/addrefact', function(req, res) {
+router.post('/addrefasc', function(req, res) {
     var db = req.db;
-    var collection = db.get('refAccountTypeCode');
+    var collection = db.get('refAccountStatusCode');
     collection.insert(req.body, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -52,14 +61,17 @@ router.post('/addrefact', function(req, res) {
     });
 });
 
-/*
- * DELETE from refact.
+/**
+ * @api {delete} /refasc/deleterefact/:id Remove account status reference
+ * @apiVersion 1.0.0
+ * @apiName RemoveAccountStatusCode
+ * @apiGroup refAccountStatusCode
  */
 router.delete('/deleterefact/:id', function(req, res) {
     var db = req.db;
-    var collection = db.get('refAccountTypeCode');
-    var acreferenceToGet = req.params.id;
-    collection.remove({ 'accountTypeCode' : acreferenceToGet }, function(err) {
+    var collection = db.get('refAccountStatusCode');
+    var statusToGet = req.params.id;
+    collection.remove({ 'accountStatusCode' : statusToGet }, function(err) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
 });
