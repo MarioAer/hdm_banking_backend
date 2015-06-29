@@ -1,3 +1,16 @@
+// var settings = {
+//   "async": true,
+//   "crossDomain": true,
+//   "url": "API_URL",
+//   "method": "GET",
+//   "headers": {"Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)};
+// }
+//
+// $.ajax(settings).done(function (response) {
+//   // console.log(response);
+//   // use response object
+// });
+
 // Userlist data array for filling in info box
 var userListData = [];
 
