@@ -12,21 +12,16 @@ var serializer = new EasyXml({
     manifest: true
 });
 
-router.get('/', function(req, res, next) {
-  res.send(
-      (err === null) ? { msg: '' } : { msg: err }
-  );
-});
-
 /**
- * @api {get} /customer/customerslist List of customers
+ * @api {get} /customers List of customers
  * @apiVersion 1.0.0
  * @apiName GetCustomersList
+ * @apiDescription Retrieves a list of customers
  * @apiGroup Customer
  *
  * @apiSuccess {Object[]} customer Customer Objects.
  */
-router.get('/customerslist', passport.authenticate('basic', { session: true }), function(req, res, next) {
+router.get('/', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('customers');
   collection.find({},{},function(e, data){
@@ -50,7 +45,10 @@ router.get('/customerslist', passport.authenticate('basic', { session: true }), 
  * @api {get} /customer/:id Read data of a customer
  * @apiVersion 1.0.0
  * @apiName GetCustomers
+ * @apiDescription Retrieves a specific (id based) ustomer
  * @apiGroup Customer
+ *
+ * @apiParam {String} customerID Customer id.
  *
  * @apiSuccess {String} customerID Customer id.
  * @apiSuccess {String} address Customer's address.
@@ -80,28 +78,42 @@ router.get('/:id', passport.authenticate('basic', { session: true }), function(r
 });
 
 /**
- * @api {post} /customer/addCustomer Saves a customer in the DB.
+ * @api {post} /customers Creates a new customer
  * @apiVersion 1.0.0
+ * @apiDescription  Creates a new customer
  * @apiName AddCustomers
  * @apiGroup Customer
+ *
+ * @apiParam {String} customerID Customer id.
+ * @apiParam {String} address Customer's address.
+ * @apiParam {String} personalConditionCode Disability code.
+ * @apiParam {String} supporterID Supporter id of respective customer.
+ * @apiParam {String} contactDetails Extra details about the customer.
+ *
+ * @apiSuccess {String} customerID Customer id.
  */
-router.post('/addcustomer', passport.authenticate('basic', { session: true }), function(req, res) {
+router.post('/', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.insert(req.body, function(err, result){
         res.send(
-            (err === null) ? { msg: '' } : { msg: err }
+            (err === null) ? { msg: 'Customer saved' } : { msg: err }
         );
     });
 });
 
 /**
- * @api {post} /customer/deleteCustomer Deletes customer from the DB.
+ * @api {delete} /customers/:id Deletes customer from the DB.
  * @apiVersion 1.0.0
  * @apiName AddCustomers
+ * @apiDescription  Deletes customer from the DB
  * @apiGroup Customer
+ *
+ * @apiParam {String} customerID Customer id.
+ *
+ * @apiSuccess {String} customerID Customer id.
  */
-router.delete('/deletecustomer/:id', passport.authenticate('basic', { session: true }), function(req, res) {
+router.delete('/:id', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('customers');
     var userToDelete = req.params.id;

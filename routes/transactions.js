@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var EasyXml = require('easyxml');
+var passport = require('passport');
 
 var serializer = new EasyXml({
     singularizeChildren: true,
@@ -11,19 +12,15 @@ var serializer = new EasyXml({
     manifest: true
 });
 
-router.get('/', function(req, res, next) {
-  res.json({ transactions : "trasaction information"});
-});
-
 /**
- * @api {get} /transactions/transactionlist List of Transactions
+ * @api {get} /transactions/ List of Transactions
  * @apiVersion 1.0.0
  * @apiName GetTransactionsList
  * @apiGroup Transactions
  *
- * @apiSuccess {Object[]} transactions Transactions Objects.
+ * @apiSuccess {Array} List List of transactions.
  */
-router.get('/transactionlist', function(req, res, next) {
+router.get('/', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('transactions');
   collection.find({},{},function(e, data){
@@ -47,8 +44,10 @@ router.get('/transactionlist', function(req, res, next) {
  * @api {get} /transactions/account/:id Get Transaction
  * @apiVersion 1.0.0
  * @apiName GetTransaction
- * @apiDescription Get Transaction from account id.
+ * @apiDescription Get Transactions from account.
  * @apiGroup Transactions
+ *
+ * @apiParam {String} accountID Account id.
  *
  * @apiSuccess {String} transactionID Transaction's id.
  * @apiSuccess {String} accountNumber Associated account's number.
@@ -56,7 +55,7 @@ router.get('/transactionlist', function(req, res, next) {
  * @apiSuccess {String} transactionType Transaction's type.
  * @apiSuccess {String} transactionDateTime Transaction's date.
  */
-router.get('/account/:id', function(req, res, next) {
+router.get('/account/:id', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('transactions');
   var transToGet = req.params.id;
@@ -84,13 +83,15 @@ router.get('/account/:id', function(req, res, next) {
  * @apiDescription Get Transaction from the transaction's id.
  * @apiGroup Transactions
  *
+ * @apiParam {String} transactionID Transaction's id.
+ *
  * @apiSuccess {String} transactionID Transaction's id.
  * @apiSuccess {String} accountNumber Associated account's number.
  * @apiSuccess {String} merchantID Merchant's id.
  * @apiSuccess {String} transactionType Transaction's type.
  * @apiSuccess {String} transactionDateTime Transaction's date.
  */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('basic', { session: true }), function(req, res, next) {
   var db = req.db;
   var collection = db.get('transactions');
   var transToGet = req.params.id;
@@ -112,12 +113,13 @@ router.get('/:id', function(req, res, next) {
 });
 
 /**
- * @api {post} /transactions/addtransaction Save Transaction
+ * @api {post} /transactions/ Save Transaction
  * @apiVersion 1.0.0
  * @apiName AddTransaction
+ * @apiDescription Create a new transaction.
  * @apiGroup Transactions
  */
-router.post('/addtransaction', function(req, res) {
+router.post('/', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('transactions');
     collection.insert(req.body, function(err, result){
@@ -128,12 +130,15 @@ router.post('/addtransaction', function(req, res) {
 });
 
 /**
- * @api {delete} /transactions/deleteTransaction/:id Remove Transaction
+ * @api {delete} /transactions/:id Remove Transaction
  * @apiVersion 1.0.0
  * @apiName DeleteTransaction
+ * @apiDescription Remove transaction.
  * @apiGroup Transactions
+ *
+ * @apiParam {String} transactionID Transaction's id.
  */
-router.delete('/deleteTransaction/:id', function(req, res) {
+router.delete('/:id', passport.authenticate('basic', { session: true }), function(req, res) {
     var db = req.db;
     var collection = db.get('transactions');
     var transToDelete = req.params.id;

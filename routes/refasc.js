@@ -46,12 +46,12 @@ router.get('/:id', function(req, res, next) {
 });
 
 /**
- * @api {post} /refasc/addrefasc Add account status reference
+ * @api {post} /refasc Add account status reference
  * @apiVersion 1.0.0
  * @apiName AddAccountStatusCode
  * @apiGroup refAccountStatusCode
  */
-router.post('/addrefasc', function(req, res) {
+router.post('/', function(req, res) {
     var db = req.db;
     var collection = db.get('refAccountStatusCode');
     collection.insert(req.body, function(err, result){
@@ -62,12 +62,12 @@ router.post('/addrefasc', function(req, res) {
 });
 
 /**
- * @api {delete} /refasc/deleterefact/:id Remove account status reference
+ * @api {delete} /refasc/:id Remove account status reference
  * @apiVersion 1.0.0
  * @apiName RemoveAccountStatusCode
  * @apiGroup refAccountStatusCode
  */
-router.delete('/deleterefact/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     var db = req.db;
     var collection = db.get('refAccountStatusCode');
     var statusToGet = req.params.id;

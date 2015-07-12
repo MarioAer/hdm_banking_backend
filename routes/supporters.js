@@ -11,19 +11,16 @@ var serializer = new EasyXml({
     manifest: true
 });
 
-router.get('/', function(req, res, next) {
-  res.json({ supporters : "servus"});
-});
-
 /**
- * @api {get} /supporters/supporterslist List of supporters
+ * @api {get} /supporters/ List of supporters
  * @apiVersion 1.0.0
  * @apiName GetSupportersList
+ * @apiDescription Retrieves a list of supporters
  * @apiGroup Supporters
  *
- * @apiSuccess {Object[]} supporters Supporters Objects.
+ * @apiSuccess {Array} List List of supporters.
  */
-router.get('/supporterslist', function(req, res, next) {
+router.get('/', function(req, res, next) {
   var db = req.db;
   var collection = db.get('supporters');
   collection.find({},{},function(e, data){
@@ -47,7 +44,10 @@ router.get('/supporterslist', function(req, res, next) {
  * @api {get} /supporters/:id Get supporter
  * @apiVersion 1.0.0
  * @apiName GetSupporter
+ * @apiDescription Retrieves a specific supporter
  * @apiGroup Supporters
+ *
+ * @apiParam {String} supporterID Supporter id.
  *
  * @apiSuccess {String} supporterID Supporter id.
  * @apiSuccess {String} supporterName Supporter name.
@@ -75,12 +75,13 @@ router.get('/:id', function(req, res, next) {
 });
 
 /**
- * @api {post} /addsupporter Save supporter
+ * @api {post} /supporters/ Save supporter
  * @apiVersion 1.0.0
- * @apiName AddSupporter
+ * @apiName CreateSupporter
+ * @apiDescription Creates a supporter
  * @apiGroup Supporters
  */
-router.post('/addsupporter', function(req, res) {
+router.post('/', function(req, res) {
     var db = req.db;
     var collection = db.get('supporters');
     collection.insert(req.body, function(err, result){
@@ -91,12 +92,15 @@ router.post('/addsupporter', function(req, res) {
 });
 
 /**
- * @api {delete} /deletesupporter Remove supporter
+ * @api {delete} /:id Remove supporter
  * @apiVersion 1.0.0
  * @apiName DeleteSupporter
+ * @apiDescription Removes a supporter
  * @apiGroup Supporters
+ *
+ * @apiParam {String} supporterID Supporter id.
  */
-router.delete('/deletesupporter/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     var db = req.db;
     var collection = db.get('supporters');
     var userToDelete = req.params.id;

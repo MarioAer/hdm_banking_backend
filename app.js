@@ -20,10 +20,10 @@ var usersAuth = [
 
 var routes = require('./routes/index');
 var customers = require('./routes/customers');
+var recipients = require('./routes/recipients');
 var supporters = require('./routes/supporters');
 var bank = require('./routes/bank');
 var refPersonalConditionCode = require('./routes/refpcc');
-var savedRecipients = require('./routes/savedrep');
 var accounts = require('./routes/accounts');
 var refAccountTypeCode = require('./routes/refatc');
 var refAccountStatusCode = require('./routes/refasc');
@@ -98,9 +98,9 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/customers', customers);
 app.use('/supporters', supporters);
+app.use('/recipients', recipients);
 app.use('/bank', bank);
 app.use('/refpcc', refPersonalConditionCode);
-app.use('/savedrep', savedRecipients);
 app.use('/accounts', accounts);
 app.use('/refatc', refAccountTypeCode);
 app.use('/refasc', refAccountStatusCode);

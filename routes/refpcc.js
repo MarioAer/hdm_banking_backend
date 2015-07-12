@@ -11,15 +11,43 @@ var serializer = new EasyXml({
     manifest: true
 });
 
+/**
+ * @api {get} /refpcc/ Get personal condition
+ * @apiVersion 1.0.0
+ * @apiName GetPersonalCondition
+ * @apiDescription Retrieves a list of personal conditions
+ * @apiGroup refPersonalConditionCode
+ *
+ * @apiSuccess {Array} List List of saved conditions.
+ */
 router.get('/', function(req, res, next) {
-  res.json({refPersonalConditionCode : "info"});
+    var db = req.db;
+    var collection = db.get('refPersonalConditionCode');
+    collection.find({},{},function(e, data){
+      // transform the id's into strings for the serializer
+      for(var i = 0; i < data.length; i++) {
+        var tempId = data[i]._id.toString();
+        data[i]._id = tempId;
+      }
+      // detect if the request the query xml
+      if(req.query.format == 'xml') {
+        res.set('Content-Type', 'text/xml');
+        res.send(serializer.render(data));
+      } else {
+        res.set('Content-Type', 'text/json');
+        res.json(data);
+      }
+    });
 });
 
 /**
  * @api {get} /refpcc/:id Get personal condition
  * @apiVersion 1.0.0
  * @apiName GetPersonalCondition
+ * @apiDescription Retrives a specfic personal condition
  * @apiGroup refPersonalConditionCode
+ *
+ * @apiParam {String} conditionID Condition's id.
  *
  * @apiSuccess {String} conditionID Condition's id.
  * @apiSuccess {String} conditionDescription Condition's description.
@@ -46,12 +74,13 @@ router.get('/:id', function(req, res, next) {
 });
 
 /**
- * @api {post} /refpcc/addrefpcc Save personal condition
+ * @api {post} /refpcc/ Save personal condition
  * @apiVersion 1.0.0
  * @apiName AddPersonalCondition
+ * @apiDescription Creates a new personal condition entry
  * @apiGroup refPersonalConditionCode
  */
-router.post('/addrefpcc', function(req, res) {
+router.post('/', function(req, res) {
     var db = req.db;
     var collection = db.get('refPersonalConditionCode');
     collection.insert(req.body, function(err, result){
@@ -62,12 +91,15 @@ router.post('/addrefpcc', function(req, res) {
 });
 
 /**
- * @api {delete} /refpcc/deleterefpcc/:id Remove personal condition
+ * @api {delete} /refpcc/:id Remove personal condition
  * @apiVersion 1.0.0
  * @apiName DeletePersonalCondition
+ * @apiDescription Removes a condition
  * @apiGroup refPersonalConditionCode
+ *
+ * @apiParam {String} conditionID Condition's id.
  */
-router.delete('/deleterefpcc/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     var db = req.db;
     var collection = db.get('refPersonalConditionCode');
     var userToDelete = req.params.id;

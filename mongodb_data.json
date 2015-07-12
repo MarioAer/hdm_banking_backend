@@ -12,7 +12,11 @@ db.bank.insert({
   })
 
 db.customers.insert({
+    bankID: "B1",
     customerID: "C192803",
+    firstName: "Simon",
+    middleName: "",
+    lastName: "Lindauer",
     address:
     {
       street: "Greenstr. 1",
@@ -24,8 +28,13 @@ db.customers.insert({
     supporterID: "S256943",
     contactDetails: ""
   })
+
 db.customers.insert({
+    bankID: "B1",
     customerID: "C194783",
+    firstName: "Antonia",
+    middleName: "Sabrina",
+    lastName: "Rome",
     address:
     {
       street: "Bluestr. 1",
@@ -37,6 +46,7 @@ db.customers.insert({
     supporterID: "S328843",
     contactDetails: ""
   })
+
 db.refPersonalConditionCode.insert([
 {
   conditionID: "VS02",
@@ -57,67 +67,69 @@ db.supporters.insert([
   supporterID: "S328843",
   supporterName: "Ms. Martha Space",
   supporterDescription: "Cognitive impairments"
-},
+}
 ])
 
-db.savedRecipients.insert([
+db.recipients.insert([
   {
     customerID: "C192803",
-    recipients : [
-      {
-        "recipientName" : "Julia Müller",
-        "recipientAccountNumber": "055123",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "julia.jpg"
-      },
-      {
-        "recipientName" : "Telefon - Telekom",
-        "recipientAccountNumber": "055165",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "cell.png"
-      },
-      {
-        "recipientName" : "Alexander Weber",
-        "recipientAccountNumber": "12345",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "alexander.jpg"
-      },
-      {
-        "recipientName" : "Strom - EnBW",
-        "recipientAccountNumber": "055343",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "EnBW.gif"
-      }
-    ]
+    recipientID: "R192343",
+    recipientName : "Julia Müller",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R192343.jpg"
+  },
+  {
+    customerID: "C192803",
+    recipientID: "R232233",
+    recipientName : "Alexander Weber",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R232233.jpg"
+  },
+  {
+    customerID: "C192803",
+    recipientID: "R233233",
+    recipientName : "Maria Weber",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R232233.jpg"
+  },
+  {
+    customerID: "C192803",
+    recipientID: "R233693",
+    recipientName : "Telefonica O2",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R232233.jpg"
   },
   {
     customerID: "C194783",
-    recipients : [
-      {
-        "recipientName" : "Julia Müller",
-        "recipientAccountNumber": "055123",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "julia.jpg"
-      },
-      {
-        "recipientName" : "Telefon - Telekom",
-        "recipientAccountNumber": "055165",
-        "recipientBankName": "Deutsche Bank",
-        "recipientIBAN": "",
-        "recipientPhoto": "cell.png"
-      }
-    ]
+    recipientID: "R232234",
+    recipientName : "Alexander Weber",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R232233.jpg"
+  },
+  {
+    customerID: "C194783",
+    recipientID: "R232789",
+    recipientName : "Strom - EnBW",
+    recipientAccountNumber: "055123",
+    recipientBankName: "Deutsche Bank",
+    recipientIBAN: "",
+    recipientPhoto: "R232789.jpg"
   }
 ])
 
 db.accounts.insert([
   {
-    accountNumber : "AC30354786",
+    accountNumber : "AC303547",
     customerID: "C192803",
     accountTypeCode: "AA101",
     accountStatusCode: "active",
@@ -125,7 +137,7 @@ db.accounts.insert([
     otherDetails: ""
   },
   {
-    accountNumber : "AC30345897",
+    accountNumber : "AC303458",
     customerID: "C194783",
     accountTypeCode: "AA101",
     accountStatusCode: "active",
@@ -141,7 +153,7 @@ db.refAccountTypeCode.insert([
   }
 ])
 
-db.redAccountSatusCode.insert([
+db.redAccountStatusCode.insert([
   {
     accountStatusCode: "active",
     accountStatusDescription: "This account is currently active"

@@ -6,7 +6,7 @@ var router = express.Router();
  * @api {get} /
  */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'HdM Online Banking' });
 });
 
 module.exports = router;
