@@ -6,7 +6,7 @@ var passport = require('passport');
 var serializer = new EasyXml({
     singularizeChildren: true,
     allowAttributes: true,
-    rootElement: 'customer',
+    rootElement: 'customers',
     dateFormat: 'JS',
     indent: 2,
     manifest: true

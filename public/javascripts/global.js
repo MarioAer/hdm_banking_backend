@@ -1,3 +1,7 @@
+
+// No Working File, just for example purposes
+
+
 // var settings = {
 //   "async": true,
 //   "crossDomain": true,
@@ -18,16 +22,16 @@ var userListData = [];
 $(document).ready(function() {
 
     // Populate the user table on initial page load
-    populateTable();
+    // populateTable();
 
     // Username link click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+    // $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
 
     // Add User button click
-    $('#btnAddUser').on('click', addUser);
+    // $('#btnAddUser').on('click', addUser);
 
     // Delete User link click
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+    // $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
 
 
 });
@@ -83,13 +87,13 @@ function showUserInfo(event) {
 
   };
 
-// Add User
-function addUser(event) {
+// Add Customer
+function addCustomer(event) {
   event.preventDefault();
 
   // Super basci validation
   var errorCount = 0;
-  $('#addUser input').each(function(index, val) {
+  $('#addCustomer input').each(function(index, val) {
     if($(this).val() === '') { errorCount++;}
   })
 
@@ -97,21 +101,28 @@ function addUser(event) {
   if(errorCount === 0) {
 
     // If it is, compile all user info into one object
-    var newUser = {
-      'username': $('#addUser fieldset input#inputUserName').val(),
-      'email': $('#addUser fieldset input#inputUserEmail').val(),
-      'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-      'age': $('#addUser fieldset input#inputUserAge').val(),
-      'location': $('#addUser fieldset input#inputUserLocation').val(),
-      'gender': $('#addUser fieldset input#inputUserGender').val()
+    var newCustomer = {
+      'bankID': $('#addCustomer fieldset input#inputCustomerBankID').val(),
+      'customerID': $('#addCustomer fieldset input#inputCustomerCustomerID').val(),
+      'firstName': $('#addCustomer fieldset input#inputCustomerFirstname').val(),
+      'middleName': $('#addCustomer fieldset input#inputCustomermiddleName').val(),
+      'lastName': $('#addCustomer fieldset input#inputCustomerLastname').val(),
+      'address': {
+              'street' : $('#addCustomer fieldset input#inputCustomerLocationStreet').val(),
+              'zipCode' : $('#addCustomer fieldset input#inputCustomerLocationZip').val(),
+              'City' : $('#addCustomer fieldset input#inputCustomerLocationCity').val(),
+              'Country' : $('#addCustomer fieldset input#inputCustomerLocationCountry').val(),
+      },
+      'personalConditionCode': $('#addCustomer fieldset input#inputCustomerPCC').val()
+      'supporterID': $('#addCustomer fieldset input#inputCustomerSupporterID').val()
+      'contactDetails': $('#addCustomer fieldset input#inputCustomerContactDetails').val()
     }
-
 
   // Use AJAX to post the object to our enduser service
   $.ajax({
     type:'POST',
-    data: newUser,
-    url: '/users/adduser',
+    data: newCustomer,
+    url: '/customers/',
     dataType: 'JSON'
   }).done(function( response ) {
 
